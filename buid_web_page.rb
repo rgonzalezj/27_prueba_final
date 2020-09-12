@@ -19,8 +19,8 @@ https = Net::HTTP.new(url.host, url.port);
 request = Net::HTTP::Get.new(url)
 response = https.request(request)
 https.use_ssl = true
-info = response.read_body
-info = JSON.parse(info)
+data = response.read_body
+data = JSON.parse(data)
 
 
 
@@ -44,25 +44,25 @@ end
 
 
 def build_web_page(output_nasa)
-    head = '<title>Fotos NASA</title>
-	<meta name="description" content="Fotos de la NASA para nave Curiosity,ordenadas por li para la prueba dee DLG34"/>
-    <meta name="keywords" content="nasa, curiosity, marte, fotos de la nasa"/>
-    <meta name="author" content="Rodrigo González Jorquera" />
-    <meta name="doc-type" content="web page" />
-    <link rel="shortcut icon" href="https://api.nasa.gov/assets/img/favicons/favicon.ico" type="image/x-icon" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">'
-    
-    body = "<ul></ul>"
-    footer = '<!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
-  </html>'
+        head = '<title>Fotos NASA</title>
+        <meta name="description" content="Fotos de la NASA para nave Curiosity,ordenadas por li para la prueba dee DLG34"/>
+        <meta name="keywords" content="nasa, curiosity, marte, fotos de la nasa"/>
+        <meta name="author" content="Rodrigo González Jorquera" />
+        <meta name="doc-type" content="web page" />
+        <link rel="shortcut icon" href="https://api.nasa.gov/assets/img/favicons/favicon.ico" type="image/x-icon" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">'
+        
+        body = "<ul></ul>"
+        footer = '<!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+    </html>'
 
     web = (head+body+footer)
     
@@ -72,8 +72,9 @@ def build_web_page(output_nasa)
         end
     end
     return web
+    fotos_nasa = build_web_page(data)
     File.write('fotos-nasa.html', html)
-    website_nasa = build_web_page(data)
+    
 end
 
 =begin
@@ -92,3 +93,6 @@ end
 
 nasa_pics = pic_counting(data)
 print nasa_pics
+
+
+# ¡Sin algún Cantinfleo no hay aprendizaje!
