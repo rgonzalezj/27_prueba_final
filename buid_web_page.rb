@@ -31,22 +31,25 @@ api_key= "K2rMhlaiuTIP0drR6ZkZ0HHCp6O7QgGwIVvCB7bf"
 nasa_pics = request(url_nasa, api_key)
 
 output_nasa = {}
-i = 0
+f = 0
 url_nasa["photos"].each do |hash|
     hash.each do |key, value|
         if key == "img_src"
-            url_nasa["key#{i}"] = value
-            i += 1
+            url_nasa["key#{f}"] = value
+            f += 1
         end
     end
     print output_nasa
 end
-end
+
 
 def build_web_page(output_nasa)
     head = '<title>Fotos NASA</title>
 	<meta name="description" content="Fotos de la NASA para nave Curiosity,ordenadas por li para la prueba dee DLG34"/>
-	<meta name="keywords" content="nasa, curiosity, marte, fotos de la nasa"/>
+    <meta name="keywords" content="nasa, curiosity, marte, fotos de la nasa"/>
+    <meta name="author" content="Rodrigo González Jorquera" />
+    <meta name="doc-type" content="web page" />
+    <link rel="shortcut icon" href="https://api.nasa.gov/assets/img/favicons/favicon.ico" type="image/x-icon" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -65,9 +68,27 @@ def build_web_page(output_nasa)
     
     output_nasa.each do |key, value|
         value.each do |i|
-            body += "<li><img src=\"#{i}\">...</img></li>"
+            body += "<li><img_src=#{i}>...</img></li>"
         end
     end
     return web
     File.write('fotos-nasa.html', html)
+    website_nasa = build_web_page(data)
 end
+
+=begin
+Pregunta bonus: Crear un método photos_count que reciba el hash de respuesta y devuelva
+un nuevo hash con el nombre de la camara y la cantidad de fotos.
+=end
+
+def pic_counting(output_nasa)
+    pictures_hash = {}
+    output_nasa.each do |key, value|
+    pictures_hash[key] = value.size
+    end
+    return pictures_hash
+    end
+end
+
+nasa_pics = pic_counting(data)
+print nasa_pics
